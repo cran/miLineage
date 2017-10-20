@@ -1,0 +1,11 @@
+6eaa9a03b3e6d576ff4b946bcd0e076a *DESCRIPTION
+0c7bdae7c2fc1c63101cdbb30deaa589 *NAMESPACE
+a8ad615e477a41fe959eda04ee5f05c1 *R/miLineage.R
+a33063e0c4b6b99c17ad6bf7bf54433c *data/data.real.rda
+9e311075fc7a648c23072f8dc6bb6bb8 *data/data.toy.rda
+f55747f15c029723d977792b6168bcbb *man/QCAT.Rd
+b15cb438ca9a46657e952e8055b1c122 *man/QCAT_GEE.Rd
+87ffad6f010dd8dec399437da5cef4be *man/ZIGDM.Rd
+8e7e690e8d2a4a23a3de7f90e41ff0cf *man/data.real.Rd
+5a0a82d5ca07a0e1d9c0d87a7ff948af *man/data.toy.Rd
+89eca168ff5337a29e88d0873995fdd9 *man/miLineage-package.Rd

@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("stats", "anova", "coef", "optim", "pchisq", "rbinom")
+import(MASS)
+import(data.table)
+import(geepack)
