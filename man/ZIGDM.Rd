@@ -16,24 +16,24 @@ min.depth = 0, n.resample = NULL, fdr.alpha = 0.05)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{OTU}{
-a matrix contains counts with each row corresponds to a sample and each column corresponds to an OTU or a taxon. Column name is mandatory.
+a numeric matrix contains counts with each row corresponds to a sample and each column corresponds to an OTU or a taxon. Column name is mandatory. No missing values are allowed. 
 }
   \item{X4freq}{
-a matrix contains covariates that link to presence-absence frequency in microbial compositions. Each column pertains to one variable. Set X4freq=NULL if only intercept term is needed. Samples in the OTU and X4freq matrices should be identical and in the same order.  
+a numeric matrix contains covariates that link to presence-absence frequency in microbial compositions. Each column pertains to one variable. Set X4freq=NULL if only intercept term is needed. Samples in the OTU and X4freq matrices should be identical and in the same order. No missing values are allowed. 
 }
   \item{X4mean}{
-a matrix contains covariates that link to mean abundance in microbial compositions. Each column pertains to one variable. Set X4mean=NULL if only intercept term is needed. Samples in the OTU and X4mean matrices should be identical and in the same order.  
+a numeric matrix contains covariates that link to mean abundance in microbial compositions. Each column pertains to one variable. Set X4mean=NULL if only intercept term is needed. Samples in the OTU and X4mean matrices should be identical and in the same order. No missing values are allowed.  
 }
   \item{X4disp}{
-a matrix contains covariates that link to dispersion level in microbial compositions. Each column pertains to one variable. Set X4disp=NULL if only intercept term is needed. Samples in the OTU and X4disp matrices should be identical and in the same order.  
+a numeric matrix contains covariates that link to dispersion level in microbial compositions. Each column pertains to one variable. Set X4disp=NULL if only intercept term is needed. Samples in the OTU and X4disp matrices should be identical and in the same order. No missing values are allowed.   
 }
   \item{test.type}{
   If test.type = "Mean", the function will test for differential mean (Default). If test.type = "Disp", the function will test for differential dispersion. If test.type = "Freq", the function will test for differential presence-absence frequency. 
 }
   \item{X.index}{
-If test.type = "Mean", X.index is a vector indicates the columns in X4mean for the covariate(s) of interest.
-If test.type = "Disp", X.index is a vector indicates the columns in X4disp for the covariate(s) of interest.
-If test.type = "Freq", X.index is a vector indicates the columns in X4freq for the covariate(s) of interest.
+If test.type = "Mean", X.index is a vector indicates the columns in X4mean for the covariate(s) of interest. The remaining columns in X4mean will be treated as confounders in modeling the abundance of the present taxa.
+If test.type = "Disp", X.index is a vector indicates the columns in X4disp for the covariate(s) of interest. The remaining columns in X4disp will be treated as confounders in modeling the dispersion level of the present taxa.
+If test.type = "Freq", X.index is a vector indicates the columns in X4freq for the covariate(s) of interest. The remaining columns in X4freq will be treated as confounders in modeling the presence-absence frequency.
 }
   \item{ZI.LB}{
 lower bound of zero counts for the taxon that needs zero-inflated model. 
@@ -79,8 +79,8 @@ case = data.toy$covariate.toy
 # the OTUs should be consistent between the OTU table and the taxonomy table
 OTU.toy.reorder = OTU.toy[,match(rownames(Tax.toy), colnames(OTU.toy))]
 # perform ZIGDM test for detecting differential dispersion
-ZIGDM(OTU.toy.reorder, NULL, NULL, case, test.type = "Disp", 
-1, ZI.LB = 10, Tax.toy, fdr.alpha = 0.05)
+ZIGDM(OTU.toy.reorder, NULL, NULL, case, test.type = "Disp", 1, 
+  ZI.LB = 10, Tax.toy, fdr.alpha = 0.05)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

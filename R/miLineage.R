@@ -268,7 +268,7 @@ library("geepack")
     
     X.reduce = X[,-X.par.index, drop=FALSE]
     p.reduce = p - length(X.par.index)    
-    par.interest.index.beta =  kronecker( rep(1,length(X.par.index)),((0:(m-2))*p)) + X.par.index
+    par.interest.index.beta =  kronecker( ((0:(m-2))*p), rep(1,length(X.par.index))) + X.par.index
     
     n.par.interest.beta = length(par.interest.index.beta) 
     
@@ -336,7 +336,7 @@ library("geepack")
   #n.par.interest.beta = m.beta
   n.beta = m.beta*p
   #n.beta = m.beta*2
-  par.interest.index.beta =  kronecker( rep(1,length(X.par.index)),((0:(m.beta-1))*p)) + X.par.index
+  par.interest.index.beta =  kronecker( ((0:(m.beta-1))*p), rep(1,length(X.par.index))) + X.par.index
   #par.interest.index.beta = (1:m.beta )*2
   n.par.interest.beta = length(par.interest.index.beta) 
 
@@ -1074,7 +1074,7 @@ library("geepack")
       
       X.reduce = X[,-X.par.index, drop=FALSE]
       p.reduce = p - length(X.par.index)    
-      par.interest.index.beta =  kronecker( rep(1,length(X.par.index)),((0:(m-2))*p)) + X.par.index
+      par.interest.index.beta =  kronecker(((0:(m-2))*p), rep(1,length(X.par.index))) + X.par.index
       
       n.par.interest.beta = length(par.interest.index.beta) 
       
@@ -1299,7 +1299,12 @@ library("geepack")
   for(j in 1:m){
     
     tmp = exp(alpha[((j-1)*p+1):(j*p)] %*% X.i)
-    Pi.out[j] = tmp/(tmp + 1)
+    if(is.infinite(tmp)){
+      Pi.out[j] = 1
+    }else{
+      Pi.out[j] = tmp/(tmp + 1)
+    }
+    
   }
   
   
@@ -1458,7 +1463,7 @@ library("geepack")
   
   ########### perform score test
   n.alpha = m *p
-  par.interest.index.alpha =  kronecker( rep(1,length(Z.par.index)),((0:(m-1))*p)) + Z.par.index
+  par.interest.index.alpha =  kronecker( ((0:(m-1))*p), rep(1,length(Z.par.index))) + Z.par.index
   n.par.interest.alpha = length(par.interest.index.alpha) 
   est.reduce.alpha = rep(NA, n.alpha)
   est.reduce.alpha[par.interest.index.alpha] = 0 
@@ -1507,7 +1512,7 @@ library("geepack")
   m.alpha = length(vA.list[[1]])
   n.alpha = m.alpha*p
     
-  par.interest.index.alpha =  kronecker( rep(1,length(Z.par.index)),((0:(m.alpha-1))*p)) + Z.par.index
+  par.interest.index.alpha =  kronecker( ((0:(m.alpha-1))*p), rep(1,length(Z.par.index))) + Z.par.index
   n.par.interest.alpha = length(par.interest.index.alpha) 
   
   Score.reduce.alpha.perm = matrix(0, n, n.alpha )
@@ -3190,9 +3195,9 @@ QCAT <- function(OTU, X, X.index, Tax=NULL, min.depth=0, n.resample=NULL, fdr.al
     # identify significant lineages
     subtree.tmp = subtree
     index.na = which(is.na(score.tmp))
-    if(length(index.na)>1){
+    if(length(index.na)>0){
       score.tmp = score.tmp[-index.na]
-      subtree.tmp = subtree[-index.na]
+      subtree.tmp = subtree.tmp[-index.na]
     }
     
     #score.tmp[score.tmp==0] = 1e-4
@@ -3227,7 +3232,7 @@ QCAT <- function(OTU, X, X.index, Tax=NULL, min.depth=0, n.resample=NULL, fdr.al
   
 }
 
-
+#results.two = QCAT_GEE(count.rff, X, 1, X, 1, tax, n.resample=1000, fdr.alpha=0.05)
 QCAT_GEE <- function(OTU, X, X.index, Z, Z.index, Tax=NULL, min.depth=0, n.resample=NULL, fdr.alpha=0.05){
   
   if(!is.matrix(OTU)){
@@ -3434,9 +3439,9 @@ QCAT_GEE <- function(OTU, X, X.index, Z, Z.index, Tax=NULL, min.depth=0, n.resam
       
       subtree.tmp = subtree
       index.na = which(is.na(score.tmp))
-      if(length(index.na)>1){
+      if(length(index.na)>0){
         score.tmp = score.tmp[-index.na]
-        subtree.tmp = subtree[-index.na]
+        subtree.tmp = subtree.tmp[-index.na]
       }
       
       #score.tmp[score.tmp==0] = 1e-4
@@ -3812,9 +3817,9 @@ ZIGDM <- function(OTU, X4freq, X4mean, X4disp, test.type="Mean", X.index, ZI.LB=
     # identify significant lineages
     subtree.tmp = subtree
     index.na = which(is.na(score.tmp))
-    if(length(index.na)>1){
+    if(length(index.na)>0){
       score.tmp = score.tmp[-index.na]
-      subtree.tmp = subtree[-index.na]
+      subtree.tmp = subtree.tmp[-index.na]
     }
     
     #score.tmp[score.tmp==0] = 1e-4

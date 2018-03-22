@@ -14,13 +14,13 @@ min.depth = 0, n.resample = NULL, fdr.alpha = 0.05)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{OTU}{
-a matrix contains counts with each row corresponds to a sample and each column corresponds to an OTU or a taxon. Column name is mandatory
+a numeric matrix contains counts with each row corresponds to a sample and each column corresponds to an OTU or a taxon. Column name is mandatory. No missing values are allowed.
 }
   \item{X}{
-a matrix contains covariates with each column pertains to one variable. Samples in the OTU and X matrices should be identical and in the same order.  
+a numeric matrix contains covariates with each column pertains to one variable. Samples in the OTU and X matrices should be identical and in the same order. No missing values are allowed. 
 }
   \item{X.index}{
-a vector indicates the columns in X for the covariate(s) of interest
+a vector indicates the columns in X for the covariate(s) of interest. The remaining columns in X will be treated as confounders.
 }
   \item{Tax}{
 a matrix define the taxonomic ranks with each row corresponds to an OTU or a taxon and each column corresponds to a rank (start from the higher taxonomic level, e.g., from kingdom to genus). Row name is mandatory and should be consistent with the column name of the OTU table,  Column name should be formatted as "Rank1", "Rank2", etc, representing the taxonomic levels from highest to lowest. 

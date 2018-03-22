@@ -13,8 +13,8 @@ miLineage allows users to (a) perform tests on multivariate taxon counts; (b) lo
 \tabular{ll}{
 Package: \tab miLineage\cr
 Type: \tab Package\cr
-Version: \tab 2.0\cr
-Date: \tab 2017-10-18\cr
+Version: \tab 2.1\cr
+Date: \tab 2018-03-09\cr
 License: \tab GPL (>=2)\cr
 }
 QCAT, QCAT_GEE, ZIGDM
@@ -41,7 +41,7 @@ OTU.toy.reorder = OTU.toy[,match(rownames(Tax.toy), colnames(OTU.toy))]
 # perform QCAT test for detecting differential mean
 QCAT(OTU.toy.reorder, case, 1, Tax.toy, fdr.alpha=0.05)
 # perform ZIGDM test for detecting differential dispersion
-ZIGDM(OTU.toy.reorder, NULL, NULL, case, test.type = "Disp", 
-1, ZI.LB = 10, Tax.toy, fdr.alpha = 0.05)
+ZIGDM(OTU.toy.reorder, NULL, NULL, case, test.type = "Disp", 1, 
+  ZI.LB = 10, Tax.toy, fdr.alpha = 0.05)
 
 }
